@@ -13,4 +13,4 @@ Technologies used:
    ii) Jupyter Notebook
    iii) Web Scraping to make database for the system
    iv) Flask (Python) to make frontend and website of the Recommender system.
-   v) Jeccard similarity to match the input keyword with the database.
+   v) Jaccard similarity to match the input keyword with the database.

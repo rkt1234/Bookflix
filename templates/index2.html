@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Books Recommender</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=DynaPuff&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Concert+One&family=DynaPuff&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      src="https://kit.fontawesome.com/a076d05399.js"
+      crossorigin="anonymous"
+    ></script>
+    <style>
+      body {
+        width: 100vw;
+        height: 100vh;
+        background-color: rgb(3, 238, 255);
+      }
+
+      #title::placeholder {
+        color: #b9b4b4;
+      }
+
+      h2 {
+        justify-content: center;
+      }
+
+      .heading {
+        color: rgb(255, 156, 240);
+        background-color: rgb(0, 0, 78);
+        padding-top: 10px;
+        padding-bottom: 20px;
+        padding-left: 80px;
+        padding-right: 80px;
+        border-radius: 15px;
+        font-family: "Concert One", cursive;
+      }
+
+      a {
+        text-decoration: none;
+      }
+
+      .icn {
+        color: black;
+      }
+
+      .marq {
+        background-color: rgb(8, 209, 119);
+        color: rgb(144, 0, 144);
+        font-family: "DynaPuff", cursive;
+      }
+      .newhead {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+      }
+
+      .col {
+        font-size: 15px;
+        background-color: rgb(69, 2, 31);
+        color: white;
+      }
+
+      .frm {
+        display: flex;
+        justify-content: center;
+      }
+
+      @media screen and (max-width:480){
+        .form-control{
+          width: 100%;
+        }
+
+        .col {
+          font-size: 10px;
+          background-color: rgb(69, 2, 31);
+          color: white;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container my-2">
+      <div class="newhead">
+        <h2 class="heading" style="text-align: center">
+          <i class="fas fa-book-open" style="color: rgb(255, 255, 255)"></i>
+          Welcome to book recommender
+          <i class="fas fa-book-open"></i>
+        </h2>
+      </div>
+
+      <form action="/greet" method="POST">
+        <div class="frm-p">
+          <div class="frm-c mb-15 d-flex">
+            <label for="title" class="form-label"></label>
+            <input
+              type="text"
+              class="form-control m-1"
+              name="title"
+              id="title"
+              placeholder="Enter book description"
+              aria-describedby="emailHelp"
+              value="{{name}}"
+            />
+            <button type="submit" class="btn btn-primary m-1">Search</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="container my-3">
+      {% if name|length == 0 %}
+      <div
+        style="display: flex; justify-content: center; color: rgb(71, 124, 128)"
+      >
+        <h2>Nothing yet searched !!, Please search for any book</h2>
+      </div>
+      {% elif names|length == 0 %}
+      <div
+        style="display: flex; justify-content: center; color: rgb(71, 124, 128)"
+      >
+        <h2>Sorry, No relevant recommendation !!</h2>
+      </div>
+      {% else %}
+      <div style="display: flex; justify-content: center">
+        <h2>Recommended Books</h2>
+      </div>
+      <table class="table">
+        <thead class="col">
+          <tr>
+            <th scope="col">SNO</th>
+            <th scope="col">BOOK TITLE</th>
+            <th scope="col">AUTHOR</th>
+            <th scope="col">PRICE</th>
+            <th scope="col">RATING(5)</th>
+            <th scope="col">BUY HERE</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in names %}
+          <tr>
+            <th scope="row" style="background-color: rgb(2, 136, 36)">
+              {{loop.index}}
+            </th>
+            <td style="background-color: rgb(19, 179, 204)">{{item[0]}}</td>
+            <td style="background-color: rgb(200, 192, 238)">{{item[1]}}</td>
+            <td style="background-color: rgb(205, 140, 255)">{{item[2]}}</td>
+            <td style="background-color: rgb(175, 184, 0)">{{item[3]}}</td>
+            <td style="background-color: rgb(248, 162, 41)">
+              <a href="{{item[4]}}" target="_blank"
+                ><i
+                  class="fa fa-amazon icn"
+                  style="
+                    font-size: 30px;
+                    display: flex;
+                    justify-content: center;
+                  "
+                ></i
+              ></a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% endif %}
+    </div>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
